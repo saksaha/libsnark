@@ -10,6 +10,7 @@
 #include <libff/common/utils.hpp>
 
 #include <libsnark/gadgetlib1/gadgets/hashes/sha256/sha256_gadget.hpp>
+#include <iostream>
 
 using namespace libsnark;
 
@@ -23,8 +24,11 @@ void test_two_to_one()
     digest_variable<FieldT> output(pb, SHA256_digest_size, "output");
 
     sha256_two_to_one_hash_gadget<FieldT> f(pb, left, right, output, "f");
+    // std::cout << f;
     f.generate_r1cs_constraints();
-    printf("Number of constraints for sha256_two_to_one_hash_gadget: %zu\n", pb.num_constraints());
+
+    printf("123123umber of constraints for sha256_two_to_one_hash_gadget: %zu\n",
+        pb.num_constraints());
 
     const libff::bit_vector left_bv = libff::int_list_to_bits({0x426bc2d8, 0x4dc86782, 0x81e8957a, 0x409ec148, 0xe6cffbe8, 0xafe6ba4f, 0x9c6f1978, 0xdd7af7e9}, 32);
     const libff::bit_vector right_bv = libff::int_list_to_bits({0x038cce42, 0xabd366b8, 0x3ede7e00, 0x9130de53, 0x72cdf73d, 0xee825114, 0x8cb48d1b, 0x9af68ad0}, 32);
